@@ -35,7 +35,7 @@ function Home() {
       <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24">
         {/* Send Button */}
         <div
-          className="relative w-48 h-48 md:w-72 md:h-56 bg-blue-500 rounded-3xl shadow-xl transition-all duration-300 ease-in-out hover:scale-105 cursor-pointer flex flex-col items-center justify-center"
+          className="relative w-48 h-48 md:w-72 md:h-56  bg-blue-500 rounded-3xl shadow-xl transition-all duration-300 ease-in-out hover:scale-105 cursor-pointer flex flex-col items-center justify-center"
           onClick={(e) => handleClick("/send", "bg-blue-500", "Sending Files...", "/send-icon.png", e)}
         >
           <img src="/send-icon.png" alt="Send" className="w-24 md:w-28" />
