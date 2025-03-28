@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -9,37 +9,49 @@ function Send() {
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [serverIP, setServerIP] = useState("localhost");
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
+  // Fetch local IP dynamically
+  useEffect(() => {
+    async function getLocalIP() {
+      try {
+        const response = await axios.get("http://localhost:5000/ip");
+        setServerIP(response.data.ip || "localhost");
+      } catch (error) {
+        console.error("Error fetching IP:", error);
+      }
+    }
+    getLocalIP();
+  }, []);
+
   const handleFileSelect = (event) => {
     const newFiles = Array.from(event.target.files);
-    setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+    setFiles(newFiles);
   };
 
   const handleDrop = (event) => {
     event.preventDefault();
     setDragging(false);
     const droppedFiles = Array.from(event.dataTransfer.files);
-    setFiles((prevFiles) => [...prevFiles, ...droppedFiles]);
+    setFiles(droppedFiles);
   };
 
   const handleUpload = async () => {
     if (files.length === 0) {
-      alert("Please select at least one file before sending.");
+      alert("Please select a file before sending.");
       return;
     }
-
-    const formData = new FormData();
-    files.forEach((file) => {
-      formData.append("file", file);
-    });
 
     setUploading(true);
     setUploadProgress(0);
 
+    const formData = new FormData();
+    formData.append("file", files[0]); // Upload only one file at a time
+
     try {
-      const response = await axios.post("http://localhost:5000/upload", formData, {
+      const response = await axios.post(`http://${serverIP}:5000/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
@@ -48,7 +60,7 @@ function Send() {
       });
 
       setTransferId(response.data.transferId);
-      setFiles([]);
+      setFiles([]); // Clear files after upload
     } catch (error) {
       console.error("Upload failed:", error);
     } finally {
@@ -115,7 +127,7 @@ function Send() {
         />
 
         {files.length > 0 && (
-          <p className="mt-3 text-gray-800 font-medium">Selected Files: {files.length}</p>
+          <p className="mt-3 text-gray-800 font-medium">Selected File: {files[0].name}</p>
         )}
 
         <button
@@ -123,7 +135,7 @@ function Send() {
           className="mt-4 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all w-full max-w-xs text-lg font-semibold"
           disabled={uploading}
         >
-          {uploading ? "Uploading..." : "Upload Files"}
+          {uploading ? "Uploading..." : "Upload File"}
         </button>
 
         {uploading && (
@@ -164,6 +176,7 @@ function Send() {
 		S29.0059509,37.5872993,28.4444485,37.5872993z"/>
 </g>
 </svg>
+
             </button>
           </div>
         )}

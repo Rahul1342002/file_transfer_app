@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -7,7 +7,21 @@ function Receive() {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
+  const [serverIP, setServerIP] = useState("localhost");
   const navigate = useNavigate();
+
+  // Fetch local IP dynamically
+  useEffect(() => {
+    async function getLocalIP() {
+      try {
+        const response = await axios.get("http://localhost:5000/ip");
+        setServerIP(response.data.ip); // Server returns { ip: "192.168.x.x" }
+      } catch (error) {
+        console.error("Error fetching IP:", error);
+      }
+    }
+    getLocalIP();
+  }, []);
 
   const handleReceive = async () => {
     if (!transferId.trim()) {
@@ -20,7 +34,7 @@ function Receive() {
     setError(null);
 
     try {
-      const response = await axios.get(`http://localhost:5000/download/${transferId}`, {
+      const response = await axios.get(`http://${serverIP}:5000/download/${transferId}`, {
         responseType: "blob",
         onDownloadProgress: (progressEvent) => {
           if (progressEvent.total) {
