@@ -8,11 +8,12 @@ const os = require("os");
 const app = express();
 const PORT = 5000;
 
-app.use(cors());
+app.use(cors({ origin: true })); // Allow frontend to fetch the backend IP
 
 const uploadDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
 
+// Get local network IP
 const getLocalIP = () => {
   const interfaces = os.networkInterfaces();
   for (const iface of Object.values(interfaces)) {
@@ -26,14 +27,17 @@ const getLocalIP = () => {
 };
 const LOCAL_IP = getLocalIP();
 
+// Generate a unique transfer ID
 const generateTransferId = () => Math.floor(100000 + Math.random() * 900000).toString();
 
+// Multer storage configuration
 const storage = multer.diskStorage({
   destination: "uploads/",
   filename: (req, file, cb) => cb(null, generateTransferId() + path.extname(file.originalname)),
 });
 const upload = multer({ storage });
 
+// Upload file
 app.post("/upload", upload.single("file"), (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
@@ -41,6 +45,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
   res.json({ transferId: req.file.filename.split(".")[0] });
 });
 
+// Download file
 app.get("/download/:transferId", (req, res) => {
   const { transferId } = req.params;
   const filePath = path.join(__dirname, "uploads");
@@ -64,11 +69,12 @@ app.get("/download/:transferId", (req, res) => {
   });
 });
 
-// Fixed /ip route
+// Provide backend IP to frontend dynamically
 app.get("/ip", (req, res) => {
   res.json({ ip: LOCAL_IP });
 });
 
+// Start server on all network interfaces
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on:`);
   console.log(`- Local:   http://localhost:${PORT}`);
