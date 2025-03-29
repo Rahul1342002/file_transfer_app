@@ -9,6 +9,7 @@ function Send() {
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [copiedMessage, setCopiedMessage] = useState(""); // New state for "Copied to Clipboard" message
   const [serverIP, setServerIP] = useState("localhost");
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
@@ -17,17 +18,27 @@ function Send() {
   useEffect(() => {
     async function getLocalIP() {
       try {
-        const response = await axios.get(`http://${window.location.hostname}:5000/ip`, { timeout: 5000 });
-
+        const response = await axios.get("http://192.168.1.16:5000/ip", { timeout: 5000 });
         if (response.data.ip && response.data.ip !== "127.0.0.1") {
           setServerIP(response.data.ip);
         } else {
-          console.warn("Received localhost IP, using fallback...");
-          setServerIP(window.location.hostname);
+          console.warn("Received localhost IP, trying alternative methods...");
+          const fallbackIP = await fetchLocalIP();
+          setServerIP(fallbackIP);
         }
       } catch (error) {
         console.error("Error fetching IP:", error);
-        setServerIP(window.location.hostname);
+        setServerIP("localhost");
+      }
+    }
+
+    async function fetchLocalIP() {
+      try {
+        const res = await axios.get("https://api64.ipify.org?format=json"); // External API fallback
+        return res.data.ip;
+      } catch (err) {
+        console.error("Failed to get IP using external API", err);
+        return "localhost";
       }
     }
 
@@ -67,7 +78,10 @@ function Send() {
       });
 
       setTransferId(response.data.transferId);
-      setFiles([]); // Clear files after upload
+
+      // Reset file input after upload
+      setFiles([]);
+      fileInputRef.current.value = ""; // Reset file input field
     } catch (error) {
       console.error("Upload failed:", error);
       alert("Upload failed. Please try again.");
@@ -80,9 +94,12 @@ function Send() {
     if (!transferId) return;
 
     if (navigator.clipboard?.writeText) {
-      navigator.clipboard
-        .writeText(transferId)
-        .then(() => setCopied(true))
+      navigator.clipboard.writeText(transferId)
+        .then(() => {
+          setCopied(true);
+          setCopiedMessage("Copied to Clipboard!"); // Set message to display
+          setTimeout(() => setCopiedMessage(""), 2000); // Reset message after 2 seconds
+        })
         .catch((err) => console.error("Clipboard copy failed:", err));
     } else {
       const textArea = document.createElement("textarea");
@@ -92,9 +109,9 @@ function Send() {
       document.execCommand("copy");
       document.body.removeChild(textArea);
       setCopied(true);
+      setCopiedMessage("Copied to Clipboard!"); // Set message to display
+      setTimeout(() => setCopiedMessage(""), 2000); // Reset message after 2 seconds
     }
-
-    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -140,6 +157,7 @@ function Send() {
         </div>
 
         <input
+          id="fileInput"
           type="file"
           ref={fileInputRef}
           className="hidden"
@@ -176,8 +194,10 @@ function Send() {
           </div>
         )}
 
-        {copied && (
-          <div className="mt-2 text-green-600 text-sm font-semibold">Copied to clipboard!</div>
+        {copiedMessage && (
+          <div className="mt-3 text-green-600 font-semibold p-2 bg-green-100 rounded-lg">
+            {copiedMessage}
+          </div>
         )}
       </div>
     </div>

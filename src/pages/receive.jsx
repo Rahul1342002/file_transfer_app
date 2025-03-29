@@ -8,7 +8,6 @@ function Receive() {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [serverIP, setServerIP] = useState("localhost");
-  const [pasting, setPasting] = useState(false);
   const navigate = useNavigate();
 
   // Fetch the server's local network IP dynamically
@@ -83,22 +82,6 @@ function Receive() {
     }
   };
 
-  // Paste Transfer ID from clipboard
-  const pasteFromClipboard = async () => {
-    if (navigator.clipboard && navigator.clipboard.readText) {
-      setPasting(true);
-      try {
-        const text = await navigator.clipboard.readText();
-        setTransferId(text.trim());
-      } catch (err) {
-        console.error("Failed to paste from clipboard:", err);
-        setError("Failed to paste. Please enter manually.");
-      } finally {
-        setPasting(false);
-      }
-    }
-  };
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 relative p-4">
       <button
@@ -134,13 +117,6 @@ function Receive() {
               onChange={(e) => setTransferId(e.target.value)}
               className="w-full p-3 border-2 border-gray-400 rounded-lg focus:outline-none focus:border-green-500 text-lg text-center"
             />
-            <button
-              onClick={pasteFromClipboard}
-              className="absolute right-3 top-3 text-gray-500 hover:text-gray-700 transition-all"
-              disabled={pasting}
-            >
-              📋
-            </button>
           </div>
 
           <button
