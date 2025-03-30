@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+File Transfer App – Local Network File Sharing
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple and efficient file transfer application that allows users to share files over a local network. Built using React for the frontend and Express.js with Socket.io for real-time file transfers on the backend, this app provides a seamless and fast way to send files between devices without internet access.
 
-## Available Scripts
+Features
 
-In the project directory, you can run:
+📂 Real-time File Transfer – Send files instantly over a local network.
 
-### `npm start`
+🚀 Drag-and-Drop Upload – Easily upload files using a simple UI.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+🔒 Secure & Efficient – Uses Multer and fs for safe file handling.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+🌐 Web-Based Interface – Access the app from any device on the network.
 
-### `npm test`
+⚡ Lightweight & Fast – Optimized for performance.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Frontend: React, Tailwind CSS
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Backend: Node.js, Express.js, Socket.io, Multer, fs
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+Installation & Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Prerequisites
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Ensure you have Node.js and npm installed.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Backend Setup
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Clone the repository:
 
-## Learn More
+git clone https://github.com/yourusername/file-transfer-app.git
+cd file-transfer-app/backend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. Install dependencies:
 
-### Code Splitting
+npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+3. Start the backend server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+npm start
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+Frontend Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. Navigate to the frontend folder:
 
-### Deployment
+cd ../frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+2. Install dependencies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+npm install
+
+
+3. Start the frontend server:
+
+npm start
+
+
+
+Usage
+
+1. Ensure all devices are connected to the same local network.
+
+
+2. Open the frontend in a web browser.
+
+
+3. Drag and drop files to share them in real-time.
+
+
+4. Other devices on the network can receive files instantly.
+
+
+
+License
+
+This project is open-source under the MIT License.
+
