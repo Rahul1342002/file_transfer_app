@@ -1,86 +1,62 @@
-File Transfer App – Local Network File Sharing
+🚀 <span style="font-size:1.5em;">File Transfer App – Local Network Sharing</span>
 
-A simple and efficient file transfer application that allows users to share files over a local network. Built using React for the frontend and Express.js with Socket.io for real-time file transfers on the backend, this app provides a seamless and fast way to send files between devices without internet access.
-
-Features
-
-📂 Real-time File Transfer – Send files instantly over a local network.
-
-🚀 Drag-and-Drop Upload – Easily upload files using a simple UI.
-
-🔒 Secure & Efficient – Uses Multer and fs for safe file handling.
-
-🌐 Web-Based Interface – Access the app from any device on the network.
-
-⚡ Lightweight & Fast – Optimized for performance.
+A <strong>fast and lightweight</strong> file-sharing app for local networks. Built with <strong>React</strong> & <strong>Express.js</strong>, it enables <strong>real-time file transfers</strong> without internet access!
 
 
-Tech Stack
+---
 
-Frontend: React, Tailwind CSS
+✨ <span style="font-size:1.2em;">Features</span>
 
-Backend: Node.js, Express.js, Socket.io, Multer, fs
+✅ <strong>Instant File Transfer</strong> – Share files in real time.
+✅ <strong>Drag-and-Drop Upload</strong> – No complicated steps, just drop files.
+✅ <strong>Secure & Efficient</strong> – Uses <strong>Multer</strong> & <strong>fs</strong> for safe handling.
+✅ <strong>Web-Based Interface</strong> – Works on any device on the network.
+✅ <strong>Lightning Fast</strong> – Optimized for performance.
 
 
-Installation & Setup
+---
 
-Prerequisites
+🛠️ <span style="font-size:1.2em;">Tech Stack</span>
 
-Ensure you have Node.js and npm installed.
+🎨 <strong>Frontend:</strong> React, Tailwind CSS
+🔧 <strong>Backend:</strong> Node.js, Express.js, Socket.io, Multer, fs
 
-Backend Setup
 
-1. Clone the repository:
+---
+
+🚀 <span style="font-size:1.2em;">Get Started</span>
+
+📌 <span style="font-size:1.1em;">Prerequisites</span>
+
+Make sure <strong>Node.js</strong> & <strong>npm</strong> are installed.
+
+🔹 <span style="font-size:1.1em;">Backend Setup</span>
 
 git clone https://github.com/yourusername/file-transfer-app.git
 cd file-transfer-app/backend
-
-
-2. Install dependencies:
-
 npm install
+node server.js  # Run the backend server
 
-
-3. Start the backend server:
-
-npm start
-
-
-
-Frontend Setup
-
-1. Navigate to the frontend folder:
+🔹 <span style="font-size:1.1em;">Frontend Setup</span>
 
 cd ../frontend
-
-
-2. Install dependencies:
-
 npm install
-
-
-3. Start the frontend server:
-
 npm start
 
 
+---
 
-Usage
+🎯 <span style="font-size:1.2em;">How to Use</span>
 
-1. Ensure all devices are connected to the same local network.
-
-
-2. Open the frontend in a web browser.
-
-
-3. Drag and drop files to share them in real-time.
+1️⃣ <strong>Connect</strong> all devices to the same local network.
+2️⃣ <strong>Open</strong> the app in a browser.
+3️⃣ <strong>Drag and drop</strong> files to send them instantly.
+4️⃣ <strong>Other connected devices</strong> receive files in real time.
 
 
-4. Other devices on the network can receive files instantly.
+---
 
-
-
-License
+📜 <span style="font-size:1.2em;">License</span>
 
 This project is open-source under the MIT License.
 
