@@ -34,7 +34,7 @@ Ensure Node.js & npm are installed.
 
 🔹 Backend Setup
 
-git clone https://github.com/Rahul13042002/file-transfer-app.git
+git clone https://github.com/Rahul1342002/file-transfer-app.git
 cd file-transfer-app/backend
 npm install
 node server.js  # Run the backend server
